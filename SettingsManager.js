@@ -3,7 +3,7 @@
 
 // TODO: Make singleton
 // TODO: Safe callbacks
-// DEPS: jQuery
+// TODO: Externs
 
 var SettingsManager = function(defaultSettings) {
     'use strict';
