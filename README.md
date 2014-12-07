@@ -1,2 +1,2 @@
-chrome-settings-manager
+chrome-extension-settings-manager
 =======================

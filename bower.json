@@ -1,0 +1,31 @@
+{
+  "name": "chrome-extension-settings-manager",
+  "version": "0.0.1",
+  "homepage": "https://github.com/hal313/chrome-extension-settings-manager",
+  "authors": [
+    "john-github@rmdashrf.org"
+  ],
+  "description": "A facade for manipulating settings in Chrome extensions using chrome.storage.sync",
+  "main": "SettingsManager.js",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "chrome",
+    "extension",
+    "settings",
+    "chrome.storage.sync"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {},
+  "dependencies": {
+    "jquery": "~2.1.1"
+  }
+}
