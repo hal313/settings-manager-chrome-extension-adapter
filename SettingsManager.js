@@ -5,30 +5,10 @@
 // TODO: Safe callbacks
 // DEPS: jQuery
 
-var SettingsManager = function() {
+var SettingsManager = function(defaultSettings) {
     'use strict';
 
-    // TODO: Load in separate file?
-    var _defaultSettings = {
-        'regexes': [
-            {
-                'regex': 'cat|kittens|kitty',
-                'name': 'Feline'
-            },
-            {
-                'regex': 'feet',
-                'name': 'Feet'
-            },
-            {
-                'regex': 'babies|infant|kids',
-                'name': 'Babies'
-            }
-        ],
-        'show-header': true,
-        'show-name-in-header': true,
-        'feed-item-selector': '._4-u2.mbm._5jmm._5pat._5v3q',
-        'feed-item-remove-limit': 25
-    };
+    var _defaultSettings = defaultSettings || {};
 
     var _getDefaultSettings = function() {
         return _defaultSettings;
