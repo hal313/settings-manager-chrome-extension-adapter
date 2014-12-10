@@ -1,6 +1,6 @@
 {
     "name": "chrome-extension-settings-manager",
-    "version": "0.0.7",
+    "version": "0.0.8",
     "description": "A facade for manipulating settings in Chrome extensions using chrome.storage.sync",
     "scripts": {
         "test": "grunt test"
