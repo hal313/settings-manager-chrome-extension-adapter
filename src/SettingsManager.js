@@ -16,7 +16,12 @@
     // Try to define a console object
     (function(){
         try {
-            if (!console && (window)) {
+            if (!console && ('undefined' !== typeof window)) {
+                // Define the console if it does not exist
+                if (!window.console) {
+                    window.console = {};
+                }
+
                 // Union of Chrome, FF, IE, and Safari console methods
                 var consoleFunctions = [
                     'log', 'info', 'warn', 'error', 'debug', 'trace', 'dir', 'group',
