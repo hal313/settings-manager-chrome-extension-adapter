@@ -6,9 +6,11 @@
         "john-github@rmdashrf.org"
     ],
     "description": "A facade for manipulating settings in Chrome extensions using chrome.storage.sync",
-    "main": "SettingsManager.js",
+    "main": "dist/SettingsManager.js",
     "moduleType": [
-        "globals"
+        "amd",
+        "globals",
+        "node"
     ],
     "keywords": [
         "chrome",
