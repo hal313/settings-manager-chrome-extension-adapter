@@ -1,14 +1,10 @@
-/*global jQuery:false */
 /*global chrome:false */
 
-// Build User: ${build.user}
-// Version: ${build.version}
-// Build Date: ${build.date}
+// Build User: jghidiu
+// Version: 0.0.9
+// Build Date: Thu Dec 18 2014 17:03:53 GMT-0500 (Eastern Standard Time)
 
 // TODO: Safe callbacks
-// TODO: Externs
-// TODO: Take a store implementation (and default to chrome.storage.sync)
-
 
 (function(root, factory) {
     'use strict';
@@ -58,46 +54,42 @@
 })(this, function() {
     'use strict';
 
-    var SettingsManager = function(defaultSettings) {
+    var _isFunction = function(func) {
+        return 'function' === typeof func;
+    };
 
-        // TODO: Use jquery for merges?
-
-        var _defaultSettings = defaultSettings || {};
-
-        var _getDefaultSettings = function() {
-            return _defaultSettings;
-        };
+    var ChromeExtensionSettingsManager = function() {
 
         var _load = function(successCallback, errorCallback) {
-            chrome.storage.sync.get(_getDefaultSettings(), function(settings){
-                if (chrome.runtime.lastError && jQuery.isFunction(errorCallback)) {
-                    errorCallback();
-                } else if (jQuery.isFunction(successCallback)) {
-                    successCallback(settings);
+            chrome.storage.sync.get({}, function(settings){
+                if (chrome.runtime.lastError && _isFunction(errorCallback)) {
+                    errorCallback.call(null);
+                } else if (_isFunction(successCallback)) {
+                    successCallback.call(null, settings);
                 }
             });
         };
 
         var _save = function(settings, successCallback, errorCallback) {
             chrome.storage.sync.set(settings, function() {
-                if (chrome.runtime.lastError && jQuery.isFunction(errorCallback)) {
-                    errorCallback();
-                } else if(jQuery.isFunction(successCallback)) {
-                    successCallback();
+                if (chrome.runtime.lastError && _isFunction(errorCallback)) {
+                    errorCallback.call(null);
+                } else if(_isFunction(successCallback)) {
+                    successCallback.call(null);
                 }
             });
         };
 
         var _clear = function(successCallback, errorCallback) {
             chrome.storage.sync.clear(function() {
-                if (chrome.runtime.lastError && jQuery.isFunction(errorCallback)) {
-                    errorCallback();
+                if (chrome.runtime.lastError && _isFunction(errorCallback)) {
+                    errorCallback.call(null);
                 } else {
-                    chrome.storage.sync.set(_getDefaultSettings(), function() {
-                        if(chrome.runtime.lastError && jQuery.isFunction(errorCallback)) {
-                            errorCallback();
-                        } else if(jQuery.isFunction(successCallback)) {
-                            successCallback();
+                    chrome.storage.sync.set({}, function() {
+                        if(chrome.runtime.lastError && _isFunction(errorCallback)) {
+                            errorCallback.call(null);
+                        } else if(_isFunction(successCallback)) {
+                            successCallback.call(null);
                         }
                     });
                 }
@@ -105,7 +97,6 @@
         };
 
         return {
-            getDefaultSettings: _getDefaultSettings,
             load: _load,
             save: _save,
             clear: _clear
@@ -114,9 +105,8 @@
     };
 
     // Place the version as a member in the function
-    // TODO: Uncomment once build resolvers are enabled
-    // SettingsManager.version = '${build.version}';
+    ChromeExtensionSettingsManager.version = '0.0.9';
 
-    return SettingsManager;
+    return ChromeExtensionSettingsManager;
 
 });
