@@ -65,7 +65,7 @@
         }
 
         var _load = function(successCallback, errorCallback) {
-            chrome.storage.sync.get({}, function(settings){
+            chrome.storage.sync.get(function(settings){
                 if (chrome.runtime.lastError && _isFunction(errorCallback)) {
                     errorCallback.call(null);
                 } else if (_isFunction(successCallback)) {
