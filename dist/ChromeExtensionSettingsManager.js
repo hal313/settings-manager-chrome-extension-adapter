@@ -1,8 +1,8 @@
 /*global chrome:false */
 
 // Build User: jghidiu
-// Version: 0.0.11
-// Build Date: Fri Dec 19 2014 01:57:57 GMT-0500 (Eastern Standard Time)
+// Version: 0.0.12
+// Build Date: Fri Dec 19 2014 02:11:47 GMT-0500 (Eastern Standard Time)
 
 // TODO: Safe callbacks
 
@@ -65,7 +65,7 @@
         }
 
         var _load = function(successCallback, errorCallback) {
-            chrome.storage.sync.get({}, function(settings){
+            chrome.storage.sync.get(function(settings){
                 if (chrome.runtime.lastError && _isFunction(errorCallback)) {
                     errorCallback.call(null);
                 } else if (_isFunction(successCallback)) {
@@ -89,14 +89,9 @@
                 if (chrome.runtime.lastError && _isFunction(errorCallback)) {
                     errorCallback.call(null);
                 } else {
-                    // Is this necessary?
-                    chrome.storage.sync.set(function() {
-                        if(chrome.runtime.lastError && _isFunction(errorCallback)) {
-                            errorCallback.call(null);
-                        } else if(_isFunction(successCallback)) {
-                            successCallback.call(null);
-                        }
-                    });
+                    if(_isFunction(successCallback)) {
+                        successCallback.call(null);
+                    }
                 }
             });
         };
@@ -110,7 +105,7 @@
     };
 
     // Place the version as a member in the function
-    ChromeExtensionSettingsManager.version = '0.0.11';
+    ChromeExtensionSettingsManager.version = '0.0.12';
 
     return ChromeExtensionSettingsManager;
 

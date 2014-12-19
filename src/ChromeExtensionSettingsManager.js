@@ -89,14 +89,9 @@
                 if (chrome.runtime.lastError && _isFunction(errorCallback)) {
                     errorCallback.call(null);
                 } else {
-                    // Is this necessary?
-                    chrome.storage.sync.set(function() {
-                        if(chrome.runtime.lastError && _isFunction(errorCallback)) {
-                            errorCallback.call(null);
-                        } else if(_isFunction(successCallback)) {
-                            successCallback.call(null);
-                        }
-                    });
+                    if(_isFunction(successCallback)) {
+                        successCallback.call(null);
+                    }
                 }
             });
         };
