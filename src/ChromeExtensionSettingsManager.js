@@ -5,9 +5,6 @@
 // Build Date: ${build.date}
 
 // TODO: Safe callbacks
-// TODO: Externs
-// TODO: Take a store implementation (and default to chrome.storage.sync)
-
 
 (function(root, factory) {
     'use strict';
@@ -50,7 +47,7 @@
             module.exports = factory();
         } else {
             // None
-            root.TemplateManager = factory();
+            root.ChromeExtensionSettingsManager = factory();
         }
     }
 
@@ -58,22 +55,21 @@
     'use strict';
 
     var _isFunction = function(func) {
-        return func && 'function' === typeof func;
+        return 'function' === typeof func;
     };
 
-    // TODO: Rename files
-    var ChromeSettingsStore = function() {
+    var ChromeExtensionSettingsManager = function() {
 
-        if (!(this instanceof ChromeSettingsStore)) {
-            return new ChromeSettingsStore();
+        if (!(this instanceof ChromeExtensionSettingsManager)) {
+            return new ChromeExtensionSettingsManager();
         }
 
         var _load = function(successCallback, errorCallback) {
-            chrome.storage.sync.get(function(settings){
+            chrome.storage.sync.get({}, function(settings){
                 if (chrome.runtime.lastError && _isFunction(errorCallback)) {
-                    errorCallback();
+                    errorCallback.call(null);
                 } else if (_isFunction(successCallback)) {
-                    successCallback(settings);
+                    successCallback.call(null, settings);
                 }
             });
         };
@@ -81,9 +77,9 @@
         var _save = function(settings, successCallback, errorCallback) {
             chrome.storage.sync.set(settings, function() {
                 if (chrome.runtime.lastError && _isFunction(errorCallback)) {
-                    errorCallback();
+                    errorCallback.call(null);
                 } else if(_isFunction(successCallback)) {
-                    successCallback();
+                    successCallback.call(null);
                 }
             });
         };
@@ -91,13 +87,13 @@
         var _clear = function(successCallback, errorCallback) {
             chrome.storage.sync.clear(function() {
                 if (chrome.runtime.lastError && _isFunction(errorCallback)) {
-                    errorCallback();
+                    errorCallback.call(null);
                 } else {
-                    chrome.storage.sync.set(function() {
+                    chrome.storage.sync.set({}, function() {
                         if(chrome.runtime.lastError && _isFunction(errorCallback)) {
-                            errorCallback();
+                            errorCallback.call(null);
                         } else if(_isFunction(successCallback)) {
-                            successCallback();
+                            successCallback.call(null);
                         }
                     });
                 }
@@ -113,9 +109,8 @@
     };
 
     // Place the version as a member in the function
-    // TODO: Uncomment once build resolvers are enabled
-    // ChromeSettingsStore.version = '${build.version}';
+    ChromeExtensionSettingsManager.version = '${build.version}';
 
-    return ChromeSettingsStore;
+    return ChromeExtensionSettingsManager;
 
 });

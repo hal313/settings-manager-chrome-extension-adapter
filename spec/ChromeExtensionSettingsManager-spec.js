@@ -12,12 +12,15 @@
     'use strict';
 
     beforeEach(function() {
-        this.settingsManager = new SettingsManager();
+        this.chromeExtensionSettingsManager = new ChromeExtensionSettingsManager();
     });
 
     describe('API', function() {
 
         // TODO: Write tests
+        it('should have more detailed tests', function() {
+
+        });
 
     });
 

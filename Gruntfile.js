@@ -94,7 +94,7 @@ module.exports = function(grunt) {
             },
             dist: {
                 files: {
-                    'dist/ChromeSettingsStore.min.js': ['src/**/*.js']
+                    'dist/ChromeExtensionSettingsManager.min.js': ['dist/ChromeExtensionSettingsManager.js']
                 }
             }
         },
@@ -102,11 +102,9 @@ module.exports = function(grunt) {
             options: {
                 jshintrc: '.jshintrc'
             },
-            // TODO: Change
-            source: ['src/SettingsManager.js'],
+            source: ['src/ChromeExtensionSettingsManager.js'],
             // Only lint the unmin file
-            // TODO: Change
-            dist: ['dist/SettingsManager.js']
+            dist: ['dist/ChromeExtensionSettingsManager.js']
         },
         copy: {
             options: {
