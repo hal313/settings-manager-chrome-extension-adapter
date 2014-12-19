@@ -1,8 +1,8 @@
 /*global chrome:false */
 
 // Build User: jghidiu
-// Version: 0.0.10
-// Build Date: Fri Dec 19 2014 01:11:44 GMT-0500 (Eastern Standard Time)
+// Version: 0.0.11
+// Build Date: Fri Dec 19 2014 01:57:57 GMT-0500 (Eastern Standard Time)
 
 // TODO: Safe callbacks
 
@@ -110,7 +110,7 @@
     };
 
     // Place the version as a member in the function
-    ChromeExtensionSettingsManager.version = '0.0.10';
+    ChromeExtensionSettingsManager.version = '0.0.11';
 
     return ChromeExtensionSettingsManager;
 
