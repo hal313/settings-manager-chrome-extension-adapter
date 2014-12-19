@@ -2,7 +2,7 @@
 
 // Build User: jghidiu
 // Version: 0.0.9
-// Build Date: Thu Dec 18 2014 17:03:53 GMT-0500 (Eastern Standard Time)
+// Build Date: Fri Dec 19 2014 01:04:54 GMT-0500 (Eastern Standard Time)
 
 // TODO: Safe callbacks
 
@@ -47,7 +47,7 @@
             module.exports = factory();
         } else {
             // None
-            root.TemplateManager = factory();
+            root.ChromeExtensionSettingsManager = factory();
         }
     }
 
@@ -59,6 +59,10 @@
     };
 
     var ChromeExtensionSettingsManager = function() {
+
+        if (!(this instanceof ChromeExtensionSettingsManager)) {
+            return new ChromeExtensionSettingsManager();
+        }
 
         var _load = function(successCallback, errorCallback) {
             chrome.storage.sync.get({}, function(settings){
