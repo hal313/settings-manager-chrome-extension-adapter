@@ -19,6 +19,7 @@
         "chrome.storage.sync"
     ],
     "license": "MIT",
+
     "ignore": [
         "**/.*",
         "node_modules",
