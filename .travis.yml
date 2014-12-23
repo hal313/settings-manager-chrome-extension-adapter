@@ -6,3 +6,6 @@ before_install:
   - npm install -g bower
   - npm install
   - bower install
+notifications:
+  email:
+    - john-github@rmdashrf.org
