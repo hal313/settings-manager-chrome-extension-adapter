@@ -1,112 +1,73 @@
-/*global chrome:false */
-
-// Build User: jghidiu
-// Version: 0.0.14
-// Build Date: Fri Dec 19 2014 02:20:52 GMT-0500 (Eastern Standard Time)
-
-// TODO: Safe callbacks
+// Build User: User
+// Version: 0.0.15
+// Build Date: Fri Jun 01 2018 16:49:22 GMT-0400 (Eastern Daylight Time)
 
 (function(root, factory) {
     'use strict';
 
-    // Try to define a console object
-    (function(){
-        try {
-            if (!console && ('undefined' !== typeof window)) {
-                // Define the console if it does not exist
-                if (!window.console) {
-                    window.console = {};
-                }
-
-                // Union of Chrome, FF, IE, and Safari console methods
-                var consoleFunctions = [
-                    'log', 'info', 'warn', 'error', 'debug', 'trace', 'dir', 'group',
-                    'groupCollapsed', 'groupEnd', 'time', 'timeEnd', 'profile', 'profileEnd',
-                    'dirxml', 'assert', 'count', 'markTimeline', 'timeStamp', 'clear'
-                ];
-                // Define undefined methods as no-ops to prevent errors
-                for (var i = 0; i < consoleFunctions.length; i++) {
-                    if (!window.console[consoleFunctions[i]]) {
-                        window.console[consoleFunctions[i]] = function() {};
-                    }
-                }
-            }
-        } catch(error) {
-            // Not much to do if there is no console
-        }
-
-    })();
-
     // Determine the module system (if any)
-    if (typeof define === 'function' && define.amd) {
+    if ('function' === typeof define && define.amd) {
         // AMD
-        define(factory);
+        define([root], factory);
     } else {
         // Node
-        if (typeof exports !== 'undefined') {
-            module.exports = factory();
+        if ('undefined' !== typeof exports) {
+            module.exports = factory(root);
         } else {
             // None
-            root.ChromeExtensionSettingsManager = factory();
+            root.ChromeExtensionSettingsManager = factory(root);
         }
     }
-
-})(this, function() {
+})(window || this, function(global) {
     'use strict';
 
-    var _isFunction = function(func) {
+    var isFunction = function isFunction(func) {
         return 'function' === typeof func;
-    };
-
-    var ChromeExtensionSettingsManager = function() {
+    },
+    ChromeExtensionSettingsManager = function ChromeExtensionSettingsManager() {
 
         if (!(this instanceof ChromeExtensionSettingsManager)) {
             return new ChromeExtensionSettingsManager();
         }
 
-        var _load = function(successCallback, errorCallback) {
-            chrome.storage.sync.get(function(settings){
-                if (chrome.runtime.lastError && _isFunction(errorCallback)) {
+        var load = function(successCallback, errorCallback) {
+            global.chrome.storage.sync.get(function(settings) {
+                if (!!global.chrome.runtime.lastError && isFunction(errorCallback)) {
                     errorCallback.call(null);
-                } else if (_isFunction(successCallback)) {
+                } else if (!global.chrome.runtime.lastError && isFunction(successCallback)) {
                     successCallback.call(null, settings);
                 }
             });
-        };
-
-        var _save = function(settings, successCallback, errorCallback) {
-            chrome.storage.sync.set(settings, function() {
-                if (chrome.runtime.lastError && _isFunction(errorCallback)) {
+        },
+        save = function(settings, successCallback, errorCallback) {
+            global.chrome.storage.sync.set(settings, function() {
+                if (!!global.chrome.runtime.lastError && isFunction(errorCallback)) {
                     errorCallback.call(null);
-                } else if(_isFunction(successCallback)) {
+                } else if (!global.chrome.runtime.lastError && isFunction(successCallback)) {
+                    successCallback.call(null);
+                }
+            });
+        },
+        clear = function(successCallback, errorCallback) {
+            global.chrome.storage.sync.clear(function() {
+                if (!!global.chrome.runtime.lastError && isFunction(errorCallback)) {
+                    errorCallback.call(null);
+                } else if (!global.chrome.runtime.lastError && isFunction(successCallback)) {
                     successCallback.call(null);
                 }
             });
         };
 
-        var _clear = function(successCallback, errorCallback) {
-            chrome.storage.sync.clear(function() {
-                if (chrome.runtime.lastError && _isFunction(errorCallback)) {
-                    errorCallback.call(null);
-                } else {
-                    if(_isFunction(successCallback)) {
-                        successCallback.call(null);
-                    }
-                }
-            });
-        };
-
         return {
-            load: _load,
-            save: _save,
-            clear: _clear
+            load: load,
+            save: save,
+            clear: clear
         };
 
     };
 
     // Place the version as a member in the function
-    ChromeExtensionSettingsManager.version = '0.0.14';
+    ChromeExtensionSettingsManager.version = '0.0.15';
 
     return ChromeExtensionSettingsManager;
-
 });
