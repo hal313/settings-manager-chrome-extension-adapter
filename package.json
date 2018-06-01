@@ -8,7 +8,7 @@
         "test": "jest --testPathPattern=source.spec.js",
         "test:all": "jest",
         "test:watch": "jest --watch --testPathPattern=source.spec.js",
-        "dist": "grunt dist",
+        "dist": "grunt dist && jest",
         "coverage": "jest --coverage --testPathPattern=spec.js"
     },
     "jest": {
