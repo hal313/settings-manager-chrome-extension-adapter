@@ -1,10 +1,10 @@
-# [settings-manager-chrome-extension](https://github.com/hal313/settings-manager-chrome-extension)
+# [chrome-extension-settings-manager](https://github.com/hal313/chrome-extension-settings-manager)
 
 > A wrapper to adapt Chrome storage sync API (for extensions) around [settings-manager](https://github.com/hal313/settings-manager).
 
-[![Build Status](http://img.shields.io/travis/hal313/settings-manager/master.svg?style=flat-square)](https://travis-ci.org/hal313/settings-manager-chrome-extension)
-[![NPM version](http://img.shields.io/npm/v/settings-manager-chrome-extension.svg?style=flat-square)](https://www.npmjs.com/package/settings-manager-chrome-extension)
-[![Dependency Status](http://img.shields.io/david/hal313/settings-manager-chrome-extension.svg?style=flat-square)](https://david-dm.org/hal313/settings-manager-chrome-extension)
+[![Build Status](http://img.shields.io/travis/hal313/settings-manager/master.svg?style=flat-square)](https://travis-ci.org/hal313/chrome-extension-settings-manager)
+[![NPM version](http://img.shields.io/npm/v/chrome-extension-settings-manager.svg?style=flat-square)](https://www.npmjs.com/package/chrome-extension-settings-manager)
+[![Dependency Status](http://img.shields.io/david/hal313/chrome-extension-settings-manager.svg?style=flat-square)](https://david-dm.org/hal313/chrome-extension-settings-manager)
 
 ## Introduction
 A wrapper to make the Chrome storage sync API (for extensions) compilant with the [settings-manager](https://github.com/hal313/settings-manager) API.
