@@ -29,7 +29,12 @@
             "!**/vendor/**"
         ]
     },
+    "auto-changelog": {
+        "unreleased": false,
+        "commitLimit": false
+    },
     "devDependencies": {
+        "auto-changelog": "^1.7.1",
         "grunt": "^0.4.5",
         "grunt-bump": "0.0.16",
         "grunt-contrib-copy": "^0.7.0",

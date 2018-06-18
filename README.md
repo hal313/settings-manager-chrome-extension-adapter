@@ -65,6 +65,9 @@ npm run dist
 npm version --no-git-tag-version patch
 git add package*
 git commit -m 'Version bump'
+npx auto-changelog -p
+git add CHANGELOG.md
+git commit -m 'Updated changelog'
 git add dist/
 git commit -m 'Generated artifacts'
 git checkout master
