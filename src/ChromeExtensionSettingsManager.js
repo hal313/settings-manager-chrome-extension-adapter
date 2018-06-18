@@ -24,12 +24,20 @@
     var isFunction = function isFunction(func) {
         return 'function' === typeof func;
     },
+    /**
+     * Implementation for SettingsManager adapter for the Chrome Extension Settings API.
+     */
     ChromeExtensionSettingsManager = function ChromeExtensionSettingsManager() {
 
         if (!(this instanceof ChromeExtensionSettingsManager)) {
             return new ChromeExtensionSettingsManager();
         }
 
+        /**
+         * Loads values.
+         *
+         * @param {Function} successCallback the callback invoked on success (with parameter {})
+         */
         var load = function(successCallback, errorCallback) {
             global.chrome.storage.sync.get(function(settings) {
                 if (!!global.chrome.runtime.lastError && isFunction(errorCallback)) {
@@ -39,6 +47,12 @@
                 }
             });
         },
+        /**
+         * Saves values.
+         *
+         * @param {Object} settings the settings to save
+         * @param {Function} successCallback the success callback to invoke on success
+         */
         save = function(settings, successCallback, errorCallback) {
             global.chrome.storage.sync.set(settings, function() {
                 if (!!global.chrome.runtime.lastError && isFunction(errorCallback)) {
@@ -48,6 +62,11 @@
                 }
             });
         },
+        /**
+         * Clears values.
+         *
+         * @param {Function} successCallback the success callback to invoke on success
+         */
         clear = function(successCallback, errorCallback) {
             global.chrome.storage.sync.clear(function() {
                 if (!!global.chrome.runtime.lastError && isFunction(errorCallback)) {
