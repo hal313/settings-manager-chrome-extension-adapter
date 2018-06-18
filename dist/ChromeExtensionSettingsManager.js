@@ -1,6 +1,6 @@
 // Build User: User
-// Version: 1.0.1
-// Build Date: Sun Jun 17 2018 22:36:16 GMT-0400 (Eastern Daylight Time)
+// Version: 1.0.2
+// Build Date: Sun Jun 17 2018 22:41:28 GMT-0400 (Eastern Daylight Time)
 
 (function(root, factory) {
     'use strict';
@@ -67,7 +67,7 @@
     };
 
     // Place the version as a member in the function
-    ChromeExtensionSettingsManager.version = '1.0.1';
+    ChromeExtensionSettingsManager.version = '1.0.2';
 
     return ChromeExtensionSettingsManager;
 });
