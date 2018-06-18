@@ -1,6 +1,6 @@
 {
     "name": "settings-manager-chrome-extension",
-    "version": "0.0.17",
+    "version": "1.0.1",
     "description": "A backing repository for settings-manager, falling on chrome.storage.sync as an implementation.",
     "author": "John Ghidiu",
     "homepage": "https://github.com/hal313/settings-manager-chrome-extension",
