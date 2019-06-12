@@ -55,13 +55,13 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",
-    "@babel/core": "^7.4.4",
+    "@babel/core": "^7.4.5",
     "@babel/plugin-transform-modules-umd": "^7.2.0",
-    "@babel/preset-env": "^7.4.4",
+    "@babel/preset-env": "^7.4.5",
     "auto-changelog": "^1.13.0",
-    "jest": "^24.7.1",
+    "jest": "^24.8.0",
     "npm-watch": "^0.6.0",
-    "uglify-js": "^3.5.10"
+    "uglify-js": "^3.6.0"
   },
   "main": "dist/SettingsManagerChromeExtensionAdapter.js",
   "repository": {
