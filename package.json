@@ -79,6 +79,18 @@
   "bugs": {
     "url": "https://github.com/hal313/settings-manager-chrome-extension-adapter/issues"
   },
+  "watch": {
+    "build": {
+      "patterns": [
+        "src"
+      ]
+    },
+    "dist": {
+      "patterns": [
+        "src"
+      ]
+    }
+  },
   "dependencies": {
     "@hal313/settings-manager": "^1.0.11"
   }
