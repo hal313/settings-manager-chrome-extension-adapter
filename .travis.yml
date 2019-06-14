@@ -7,15 +7,20 @@ node_js:
   - '10'
 before_install:
   - npm install
-scripts:
-  ## Test the package
+script:
   - npm test
-deploy:
-  provider: npm
-  email: "$NPM_EMAIL"
-  api_key: "$NPM_TOKEN"
-  on:
-    tags: true
+
 notifications:
   email:
     - $GITHUB_EMAIL
+
+jobs:
+  include:
+    - stage: npm release
+      node_js: '10'
+      deploy:
+        provider: npm
+        email: "$NPM_EMAIL"
+        api_key: "$NPM_TOKEN"
+        on:
+          tags: true
