@@ -128,10 +128,10 @@ export class InMemoryStore {
      */
     save(settings) {
         // Assign the settings
-        this.settings = merge(this.settings, settings);
+        this.settings = settings;
 
-        // Invoke the callback
-        return Promise.resolve(merge({}, this.settings));
+        // Return the settings
+        return this.load();
     };
 
     /**
@@ -140,9 +140,8 @@ export class InMemoryStore {
      * @returns {Promise} resolves with empty settings
      */
     clear() {
-        this.settings = {};
-
-        return Promise.resolve({});
+        // Save the empty settings
+        return this.save({});
     };
 
 };
@@ -186,7 +185,12 @@ export class SettingsManager {
         if (!settings || !isObject(settings)) {
             return cleanPromise(execute(errorCallback, ['"settings" is not an object']));
         } else {
-            return cleanBackingStoreFunctionPromise(this.backingStore.save(settings), successCallback, errorCallback);
+            return cleanBackingStoreFunctionPromise(
+                // Merge with existing settings
+                this.backingStore.load().then(loadedSettings => this.backingStore.save(merge(loadedSettings, settings))).then(() => this.backingStore.load()),
+                successCallback,
+                errorCallback
+            );
         }
     };
 

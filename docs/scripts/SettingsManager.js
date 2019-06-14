@@ -174,9 +174,9 @@
        */
       value: function save(settings) {
         // Assign the settings
-        this.settings = merge(this.settings, settings); // Invoke the callback
+        this.settings = settings; // Return the settings
 
-        return Promise.resolve(merge({}, this.settings));
+        return this.load();
       }
     }, {
       key: "clear",
@@ -187,8 +187,8 @@
        * @returns {Promise} resolves with empty settings
        */
       value: function clear() {
-        this.settings = {};
-        return Promise.resolve({});
+        // Save the empty settings
+        return this.save({});
       }
     }]);
 
@@ -242,12 +242,17 @@
        * @returns {Promise} always resolves (never rejects) after the callback has been invoked
        */
       value: function save(settings, successCallback, errorCallback) {
+        var _this = this;
+
         if (!settings || !isObject(settings)) {
           return cleanPromise(execute(errorCallback, ['"settings" is not an object']));
         } else {
-          let p = this.backingStore.load()
-          .then(loadedSettings => this.backingStore.save(merge(loadedSettings, settings)));
-          return cleanBackingStoreFunctionPromise(p, successCallback, errorCallback);
+          return cleanBackingStoreFunctionPromise( // Merge with existing settings
+          this.backingStore.load().then(function (loadedSettings) {
+            return _this.backingStore.save(merge(loadedSettings, settings));
+          }).then(function () {
+            return _this.backingStore.load();
+          }), successCallback, errorCallback);
         }
       }
     }, {

@@ -92,6 +92,6 @@
     }
   },
   "dependencies": {
-    "@hal313/settings-manager": "^1.0.12"
+    "@hal313/settings-manager": "^1.1.2"
   }
 }
