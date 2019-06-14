@@ -1,16 +1,16 @@
 (function (global, factory) {
   if (typeof define === "function" && define.amd) {
-    define(["exports", "@hal313/settings-manager"], factory);
+    define(["exports"], factory);
   } else if (typeof exports !== "undefined") {
-    factory(exports, require("@hal313/settings-manager"));
+    factory(exports);
   } else {
     var mod = {
       exports: {}
     };
-    factory(mod.exports, global.settingsManager);
+    factory(mod.exports);
     global.SettingsManagerChromeExtensionAdapter = mod.exports;
   }
-})(this, function (_exports, _settingsManager) {
+})(this, function (_exports) {
   "use strict";
 
   Object.defineProperty(_exports, "__esModule", {
@@ -48,19 +48,23 @@
     /**
      * Loads values.
      *
-     * @param {Function} successCallback the callback invoked on success (with parameter {})
+     * @returns {Promise} resolves with the settings or rejects on error
      */
 
 
     _createClass(SettingsManagerChromeExtensionAdapter, [{
       key: "load",
-      value: function load(successCallback, errorCallback) {
-        this.storage.get([this.path], function (settings) {
-          if (!!getError()) {
-            (0, _settingsManager.executeAsync)(errorCallback);
-          } else {
-            (0, _settingsManager.executeAsync)(successCallback, [settings]);
-          }
+      value: function load() {
+        var _this = this;
+
+        return new Promise(function (resolve, reject) {
+          _this.storage.get([_this.path], function (settings) {
+            if (!!getError()) {
+              reject();
+            } else {
+              resolve(settings || {});
+            }
+          });
         });
       }
     }, {
@@ -70,17 +74,22 @@
        * Saves values.
        *
        * @param {Object} settings the settings to save
-       * @param {Function} successCallback the success callback to invoke on success
+       * @returns {Promise} resolves on success or rejects on error
        */
-      value: function save(settings, successCallback, errorCallback) {
-        var value = {};
-        value[this.path] = settings;
-        this.storage.set(value, function () {
-          if (!!getError()) {
-            (0, _settingsManager.executeAsync)(errorCallback);
-          } else {
-            (0, _settingsManager.executeAsync)(successCallback);
-          }
+      value: function save(settings) {
+        var _this2 = this;
+
+        return new Promise(function (resolve, reject) {
+          var value = {};
+          value[_this2.path] = settings;
+
+          _this2.storage.set(value, function () {
+            if (!!getError()) {
+              reject();
+            } else {
+              resolve();
+            }
+          });
         });
       }
     }, {
@@ -89,11 +98,11 @@
       /**
        * Clears values.
        *
-       * @param {Function} successCallback the success callback to invoke on success
+       * @returns {Promise} resolves on success or rejects on error
        */
-      value: function clear(successCallback, errorCallback) {
+      value: function clear() {
         // Do not call clear - that will clear all settings! Just set the path value to null
-        this.save(null, successCallback, errorCallback);
+        return this.save(null);
       }
     }]);
 

@@ -1,5 +1,3 @@
-import { executeAsync}  from '@hal313/settings-manager';
-
 function getError() {
     if (!!window.chrome && !!window.chrome.runtime && !!window.chrome.runtime.lastError) {
         return window.chrome.runtime.lastError;
@@ -21,15 +19,17 @@ export class SettingsManagerChromeExtensionAdapter {
     /**
      * Loads values.
      *
-     * @param {Function} successCallback the callback invoked on success (with parameter {})
+     * @returns {Promise} resolves with the settings or rejects on error
      */
-    load(successCallback, errorCallback) {
-        this.storage.get([this.path], settings => {
-            if (!!getError()) {
-                executeAsync(errorCallback);
-            } else {
-                executeAsync(successCallback, [settings]);
-            }
+    load() {
+        return new Promise((resolve, reject) => {
+            this.storage.get([this.path], settings => {
+                if (!!getError()) {
+                    reject();
+                } else {
+                    resolve(settings || {});
+                }
+            });
         });
     };
 
@@ -37,29 +37,31 @@ export class SettingsManagerChromeExtensionAdapter {
      * Saves values.
      *
      * @param {Object} settings the settings to save
-     * @param {Function} successCallback the success callback to invoke on success
+     * @returns {Promise} resolves on success or rejects on error
      */
-    save(settings, successCallback, errorCallback) {
-        let value = {};
-        value[this.path] = settings;
+    save(settings) {
+        return new Promise((resolve, reject) => {
+            let value = {};
+            value[this.path] = settings;
 
-        this.storage.set(value, () => {
-            if (!!getError()) {
-                executeAsync(errorCallback);
-            } else {
-                executeAsync(successCallback);
-            }
+            this.storage.set(value, () => {
+                if (!!getError()) {
+                    reject();
+                } else {
+                    resolve();
+                }
+            });
         });
     };
 
     /**
      * Clears values.
      *
-     * @param {Function} successCallback the success callback to invoke on success
+     * @returns {Promise} resolves on success or rejects on error
      */
-    clear(successCallback, errorCallback) {
+    clear() {
         // Do not call clear - that will clear all settings! Just set the path value to null
-        this.save(null, successCallback, errorCallback);
+        return this.save(null);
     };
 
 };
